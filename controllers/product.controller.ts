@@ -1,9 +1,13 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
+import productModel from '../models/Product';
 
-const getAllProduct = (req: Request, res: Response) => {
-  return res.json({ test: 'test' });
+const createProduct = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const createdProduct = await productModel.create(req.body);
+    res.status(201).json(createdProduct);
+  } catch (err: any) {
+    next(err);
+  }
 };
 
-export default { getAllProduct };
-
-const a: String = 'abc';
+export default { createProduct };
