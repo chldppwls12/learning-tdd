@@ -1,4 +1,4 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import routes from '../routes/index';
 import mongoose from 'mongoose';
 import * as dotenv from 'dotenv';
@@ -17,6 +17,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use('/api', routes);
-app.listen(3000, () => {
+
+app.use((error: any, req: Request, res: Response, next: NextFunction) => {
+  res.status(500).json({ message: error.message });
+});
+
+const server = app.listen(3000, () => {
   console.log(`Server is running`);
 });
+
+export default server;
