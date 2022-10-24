@@ -10,4 +10,13 @@ const createProduct = async (req: Request, res: Response, next: NextFunction) =>
   }
 };
 
-export default { createProduct };
+const getProducts = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const allProducts = await productModel.find({});
+    res.status(200).json(allProducts);
+  } catch (err: any) {
+    next(err);
+  }
+};
+
+export default { createProduct, getProducts };
