@@ -19,4 +19,17 @@ const getProducts = async (req: Request, res: Response, next: NextFunction) => {
   }
 };
 
-export default { createProduct, getProducts };
+const getProductById = async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    const product = await productModel.findById(req.params.productId);
+    if (!product) {
+      res.status(404).send();
+    } else {
+      res.status(200).json(product);
+    }
+  } catch (err: any) {
+    next(err);
+  }
+};
+
+export default { createProduct, getProducts, getProductById };
