@@ -96,6 +96,8 @@ describe('Product Controller GetById', () => {
   });
 
   it('should call ProductModel.findById', async () => {
+    // 단위 테스트에서 id는 실제 존재하지 않는 것 넣어도 된다
+    // 실제로 mongoDB는 잘 작동한다고 가정하고 테스트하는 것이기 때문
     req.params.productId = productId;
     await productController.getProductById(req, res, next);
     expect(productModel.findById).toBeCalledWith(productId);
